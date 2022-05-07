@@ -1,0 +1,36 @@
+<!-- sldsValidatorIgnore -->
+<!-- sldsValidatorIgnore -->
+<template>
+    <div class="container">
+        <lightning-card icon-name="standard:product" title="Product">
+            <div class="slds-var-m-around_medium slds-grid slds-wrap">
+                <div class="slds-size_1-of-2">
+                    <lightning-input
+                        name="enter-search"
+                        label="Search Product"
+                        onchange={handleKeyUp}
+                        type="search"></lightning-input>
+                </div>
+                <div class="slds-size_1-of-2 button">
+                    <lightning-button variant="brand" label="Add to cart"
+                        onclick={addToCartHandler}></lightning-button>
+                </div>
+            </div>
+
+            <div class="slds-var-m-around_medium" style="height: 330px;">
+                <lightning-datatable
+                    key-field="id"
+                    show-row-number-column
+                    row-number-offset={rowOffset}
+                    
+                    data={visibleProducts}
+                    columns={columns}>
+                </lightning-datatable>
+            </div>
+            <div slot="footer">
+                <c-pagination records={products}
+                    onupdate={updateProductHandler}></c-pagination>
+            </div>
+        </lightning-card>
+    </div>
+</template>

@@ -1,0 +1,5 @@
+<aura:component implements="flexipage:availableForAllPageTypes,lightning:isUrlAddressable" access="global">
+    <div class="slds-card">
+        <c:productListPage/>
+    </div>
+</aura:component>

@@ -1,0 +1,22 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <div class="container">
+        <lightning-card icon-name="standard:product" title="My Order">
+            <div class="slds-var-m-around_medium" style="height: 330px;">
+                <lightning-datatable
+                    key-field="id"
+                    data={visiblePurchaseOrder}
+                    hide-checkbox-column
+                    columns={columns}>
+                </lightning-datatable>
+            </div>
+            <div style="text-align: center;">
+                <lightning-button variant="brand" label="Add new Purchase Order" onclick={newPurchaseOrderHandler}></lightning-button>
+            </div>
+            
+            <div slot="footer">
+                <c-pagination records={purchaseOrder} onupdate={updateOrderHandler}></c-pagination>
+            </div>
+        </lightning-card>
+    </div>
+</template>

@@ -1,0 +1,22 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <div class="container">
+        <lightning-card icon-name="standard:product" title="Cart">
+            <div class="slds-var-m-around_medium" style="height: 250px;">
+                <lightning-datatable
+                    key-field="Id"
+                    data={cartItems}
+                    onsave={handleSave}
+                    draft-values={draftValues}
+                    columns={columns}
+                    onrowaction={handleRowAction}>
+                </lightning-datatable>
+            </div>
+            <div style="text-align: center;">
+                <lightning-button variant="brand" label="Checkout" onclick={checkOutHandler}></lightning-button>
+            </div>
+        </lightning-card>
+    </div>
+
+    
+</template>
