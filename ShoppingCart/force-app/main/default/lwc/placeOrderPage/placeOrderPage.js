@@ -1,6 +1,7 @@
 import { LightningElement, track, api } from 'lwc';
 import generateInvoiceNumber from '@salesforce/apex/PurchaseOrderService.generateInvoiceNumber';
 import makePurchaseOrder from '@salesforce/apex/PurchaseOrderService.makePurchaseOrder';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [{
         label: 'Name',
@@ -82,6 +83,25 @@ export default class PlaceOrderPage extends LightningElement {
         makePurchaseOrder({ productDetails: JSON.stringify(this.data), invoiceNumber: this.invoiceCode })
             .then(result => {
                 console.log(result);
+                if (result === 1) {
+                    this.dispatchEvent(
+                        new ShowToastEvent({
+                            title: 'Order Placed Successfully!',
+                            message: 'Placed',
+                            variant: 'success'
+                        })
+                    );
+                } else if (result === 0) {
+
+                    this.dispatchEvent(
+                        new ShowToastEvent({
+                            title: 'Order Placed failed!',
+                            message: 'Placed',
+                            variant: 'error'
+                        })
+                    );
+                }
+
             })
             .catch(error => {
                 console.error(error);

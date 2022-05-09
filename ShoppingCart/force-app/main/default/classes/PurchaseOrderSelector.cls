@@ -1,4 +1,4 @@
-public with sharing class PurchaseOrderSelector extends fflib_SObjectSelector{
+public with sharing class PurchaseOrderSelector extends fflib_SObjectSelector implements IPurchaseOrderSelector{
     public List<Schema.SObjectField> getSObjectFieldList() {
         return new List<Schema.SObjectField> {
             PurchaseOrder__c.Id,
@@ -17,5 +17,14 @@ public with sharing class PurchaseOrderSelector extends fflib_SObjectSelector{
         });
 
         return (List<PurchaseOrder__c>) Database.query(query);
+    }
+
+    public static PurchaseOrderSelector newInstance()
+	{
+		return (PurchaseOrderSelector) Application.Selector.newInstance(PurchaseOrder__c.SObjectType);
+	}
+
+    public interface IPurchaseOrderSelector extends fflib_ISObjectSelector {
+        List<PurchaseOrder__c> getAllPurchaseOrder();
     }
 }

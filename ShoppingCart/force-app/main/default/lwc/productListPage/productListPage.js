@@ -16,8 +16,9 @@ export default class ProductListPage extends NavigationMixin(LightningElement) {
     @track rowOffset = 0;
     visibleProducts;
     @track selectedProducts = [];
-    connectedCallback() {
 
+    connectedCallback() {
+        // this.template.querySelector("lightning-datatable").selectedRows = [];
         getProducts({ searchKey: this.searchKey })
             .then(result => {
                 let tempProduct = JSON.stringify(result).split('"Price__c":').join('"Price":');
@@ -32,13 +33,19 @@ export default class ProductListPage extends NavigationMixin(LightningElement) {
 
     }
 
+    renderedCallback() {
+        console.log('called render');
+        this.template.querySelector("lightning-datatable").selectedRows = [];
+    }
+
 
     handleKeyUp(event) {
         this.searchKey = event.target.value;
         getProducts({ searchKey: this.searchKey })
             .then(result => {
-                this.products = result;
-                console.log(this.products);
+                let tempProduct = JSON.stringify(result).split('"Price__c":').join('"Price":');
+                tempProduct = tempProduct.split('"Available_Units__c":').join('"AvailableUnits":');
+                this.products = JSON.parse(tempProduct);
             })
             .catch(error => {
                 this.error = error;
@@ -81,6 +88,7 @@ export default class ProductListPage extends NavigationMixin(LightningElement) {
     }
 
     disconnectedCallback() {
+        console.log('called disconnected');
         this.searchKey = '';
         this.products = undefined;
         this.selectedProducts = undefined;

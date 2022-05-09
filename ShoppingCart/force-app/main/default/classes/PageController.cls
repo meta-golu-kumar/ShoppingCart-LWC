@@ -3,16 +3,17 @@ public with sharing class PageController {
 
     }
 
-    
+    @TestVisible
     @AuraEnabled
     public static List<Product2> getProducts(String searchKey){
-       
-        return new ProductsSelector().getAllProducts(searchKey);
+        ProductsSelector newProductSelector = ProductsSelector.newInstance();
+        return newProductSelector.getAllProducts(searchKey);
         
     }
 
     @AuraEnabled
     public static List<PurchaseOrder__c> getPurchaseOrders(){
-        return new PurchaseOrderSelector().getAllPurchaseOrder();
+        PurchaseOrderSelector newPurchaseOrderSelector = PurchaseOrderSelector.newInstance();
+        return newPurchaseOrderSelector.getAllPurchaseOrder();
     }
 }
